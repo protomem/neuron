@@ -19,3 +19,22 @@ project "neuron"
     filter "configurations:Release"
         defines { "NDEBUG" }
         optimize "On"
+
+project "tests"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    targetdir "build/%{cfg.buildcfg}"
+
+    files { "test/**.cpp" }
+    includedirs { "include" }
+
+    links { "neuron", "gtest" }
+
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
+
+    filter "configurations:Release"
+        defines { "NDEBUG" }
+        optimize "On"
