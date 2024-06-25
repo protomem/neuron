@@ -10,6 +10,12 @@ TEST(Neuron, Neuron)
     ASSERT_TRUE(1 == 1);
 }
 
+TEST(Neuron, Neuron2)
+{
+    neuron::Neuron n;
+    ASSERT_TRUE(1 == 2);
+}
+
 int main(int argc, char **argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
