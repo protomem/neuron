@@ -9,3 +9,9 @@ public:
 };
 
 }
+
+namespace neuron::math {
+
+double dotProduct(const std::vector<double> &a, const std::vector<double> &b);
+
+}
