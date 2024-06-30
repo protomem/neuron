@@ -26,7 +26,7 @@ project "tests"
     cppdialect "C++17"
     targetdir "build/%{cfg.buildcfg}"
 
-    files { "test/**.cpp" }
+    files { "tests/**.cpp" }
     includedirs { "include" }
 
     links { "neuron", "gtest" }

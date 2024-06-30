@@ -24,7 +24,7 @@ build:
 
 ## tests: run the unit tests
 .PHONY: tests
-tests:
+tests: build
 	cd build && make tests
 	if [ -d build/Debug ]; \
 		then ./build/Debug/tests; \
