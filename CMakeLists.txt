@@ -15,6 +15,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # (статическая или динамическая, в зависимости от BUILD_SHARED_LIBS)
 add_library(neuron
     src/neuron.cpp
+    src/Neuron.cpp
+    src/Layer.cpp
+    src/math.cpp
 )
 
 # Публичные заголовочные файлы
