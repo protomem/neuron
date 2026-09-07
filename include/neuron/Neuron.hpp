@@ -33,12 +33,12 @@ struct Neuron {
     {
     }
 
-    inline void SetDelta(double delta)
+    void SetDelta(double delta)
     {
         _delta = delta;
     }
 
-    inline double CallActivation()
+    double CallActivation()
     {
         if (!_activation)
             return 0;
@@ -46,7 +46,7 @@ struct Neuron {
         return _activation(_cache);
     }
 
-    inline double CallActivationDerivative()
+    double CallActivationDerivative()
     {
         if (!_activationDerivative)
             return 0;
