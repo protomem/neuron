@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstddef>
 #include <vector>
 
 namespace neuron {
@@ -9,24 +10,57 @@ using ActivationFunction = double (*)(double);
 struct Neuron {
     std::vector<double> _weights;
 
-    double _learning_rate;
-    double _delta;
+    double _learningRate;
+    double _delta = 0;
 
-    double _cache;
+    double _cache = 0;
 
     ActivationFunction _activation;
-    ActivationFunction _activation_derivative;
+    ActivationFunction _activationDerivative;
 
-    Neuron(std::vector<double> weights, double learning_rate,
-        ActivationFunction activation, ActivationFunction activation_derivative)
+    Neuron(std::vector<double> weights, double learningRate,
+        ActivationFunction activation, ActivationFunction activationDerivative)
         : _weights(weights)
-        , _learning_rate(learning_rate)
+        , _learningRate(learningRate)
         , _activation(activation)
-        , _activation_derivative(activation_derivative)
+        , _activationDerivative(activationDerivative)
     {
     }
 
+    Neuron(double learningRate,
+        ActivationFunction activation, ActivationFunction activationDerivative)
+        : Neuron(std::vector<double>(0), learningRate, activation, activationDerivative)
+    {
+    }
+
+    inline void SetDelta(double delta)
+    {
+        _delta = delta;
+    }
+
+    inline double CallActivation()
+    {
+        if (!_activation)
+            return 0;
+
+        return _activation(_cache);
+    }
+
+    inline double CallActivationDerivative()
+    {
+        if (!_activationDerivative)
+            return 0;
+
+        return _activationDerivative(_cache);
+    }
+
     double Forward(const std::vector<double>& inputs);
+};
+
+struct NueronFabric {
+    static std::vector<Neuron> CreateNeurons(size_t numNeurons,
+        size_t numInputs, double learningRate, ActivationFunction activation,
+        ActivationFunction activationDerivative);
 };
 
 }
