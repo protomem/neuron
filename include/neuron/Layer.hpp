@@ -16,7 +16,7 @@ struct Layer {
     Layer(std::shared_ptr<Layer> prevLayer, size_t numNeurons, double learningRate,
         ActivationFunction activation, ActivationFunction activationDerivative)
         : _prevLayer(prevLayer)
-        , _neurons(NueronFabric::CreateNeurons(
+        , _neurons(NeuronFabric::CreateNeurons(
               numNeurons, prevLayer == nullptr ? 0 : numNeurons,
               learningRate, activation, activationDerivative))
         , _cache(numNeurons)

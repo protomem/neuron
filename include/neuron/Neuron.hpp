@@ -57,7 +57,7 @@ struct Neuron {
     double Forward(const std::vector<double>& inputs);
 };
 
-struct NueronFabric {
+struct NeuronFabric {
     static std::vector<Neuron> CreateNeurons(size_t numNeurons,
         size_t numInputs, double learningRate, ActivationFunction activation,
         ActivationFunction activationDerivative);

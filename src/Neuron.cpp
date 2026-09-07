@@ -16,7 +16,7 @@ double Neuron::Forward(const std::vector<double>& inputs)
     return _activation(_cache);
 }
 
-std::vector<Neuron> NueronFabric::CreateNeurons(size_t numNeurons,
+std::vector<Neuron> NeuronFabric::CreateNeurons(size_t numNeurons,
     size_t numInputs, double learningRate, ActivationFunction activation,
     ActivationFunction activationDerivative)
 {
