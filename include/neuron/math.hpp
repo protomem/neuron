@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <vector>
+
 namespace neuron::math {
 
 double dot_product(const std::vector<double>& a, const std::vector<double>& b);

@@ -6,4 +6,4 @@ namespace neuron {
 
 std::string version();
 
-} // namespace neuron
+}

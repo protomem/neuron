@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+
 namespace neuron {
 
 using ActivationFunction = double (*)(double);

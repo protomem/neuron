@@ -1,8 +1,7 @@
-#pragma once
+#include "neuron/Neuron.hpp"
 
 #include <cassert>
 
-#include "neuron/Neuron.hpp"
 #include "neuron/math.hpp"
 
 namespace neuron {
