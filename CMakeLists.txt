@@ -4,6 +4,11 @@ cmake_minimum_required(VERSION 3.15)
 # Описание проекта: имя, версия и используемые языки
 project(neuron VERSION 0.0.0 LANGUAGES CXX)
 
+# Глобальные настройки стандарта C++
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 # Опция сборки тестов (можно отключить через -DNEURON_BUILD_TESTS=OFF)
 option(NEURON_BUILD_TESTS "Build neuron tests" ON)
 
@@ -14,7 +19,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # Цель библиотеки neuron
 # (статическая или динамическая, в зависимости от BUILD_SHARED_LIBS)
 add_library(neuron
-    src/neuron.cpp
+    src/version.cpp
     src/Neuron.cpp
     src/Layer.cpp
     src/math.cpp
@@ -28,13 +33,6 @@ target_include_directories(neuron
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
-
-# Настройки стандарта C++
-set_target_properties(neuron PROPERTIES
-    CXX_STANDARD 17
-    CXX_STANDARD_REQUIRED YES
-    CXX_EXTENSIONS NO
 )
 
 # Экспорт символов при сборке динамической библиотеки под Windows

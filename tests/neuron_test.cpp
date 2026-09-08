@@ -16,7 +16,8 @@ TEST(NeuronTest, ForwardWithKnownWeights)
     using namespace neuron;
 
     std::vector<double> weights = { 1.0, 2.0, -1.0 };
-    Neuron n(weights, /*learningRate*/ 0.1, math::sigmoid, math::sigmoid_derivative);
+    Neuron n(weights, /*learningRate*/ 0.1, math::sigmoid,
+        math::sigmoid_derivative);
 
     std::vector<double> input = { 2.0, 0.5, 1.0 };
     // dot = 2*1 + 0.5*2 + 1*(-1) = 2 + 1 - 1 = 2
@@ -89,8 +90,7 @@ TEST(LayerTest, CalcDeltaHiddenLayer)
     }
 }
 
-int main(int argc, char** argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

@@ -1,10 +1,14 @@
 BUILD_DIR ?= build
 CMAKE_BUILD_TYPE ?= Debug
+CXX_COMPILER ?= clang++
 
 ## Генерация файлов сборки CMake
 configure:
 	@mkdir -p $(BUILD_DIR)
-	cd $(BUILD_DIR) && cmake -DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) ..
+	@cd $(BUILD_DIR) && cmake \
+		-DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) \
+		-DCMAKE_CXX_COMPILER=$(CXX_COMPILER) \
+		..
 
 ## Сборка всего проекта
 all: configure
