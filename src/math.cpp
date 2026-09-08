@@ -1,6 +1,7 @@
 #include "neuron/math.hpp"
 
 #include <cassert>
+#include <cmath>
 
 namespace neuron::math {
 
