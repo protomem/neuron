@@ -22,6 +22,7 @@ add_library(neuron
     src/version.cpp
     src/Neuron.cpp
     src/Layer.cpp
+    src/Network.cpp
     src/math.cpp
 )
 

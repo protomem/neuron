@@ -22,14 +22,14 @@ std::vector<double> Layer::Forward(const std::vector<double>& inputs)
     return _cache;
 }
 
-void Layer::CalcDelta(std::vector<double> expected)
+void Layer::CalcDelta(std::vector<double> target)
 {
-    assert(expected.size() == _neurons.size());
+    assert(target.size() == _neurons.size());
     assert(_neurons.size() == _cache.size());
 
     for (size_t i = 0; i < _neurons.size(); i++) {
         auto neuron = _neurons[i];
-        double currentDelta = expected[i] - _cache[i];
+        double currentDelta = target[i] - _cache[i];
 
         neuron.SetDelta(neuron.CallActivationDerivative() * currentDelta);
     }

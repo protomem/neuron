@@ -25,7 +25,7 @@ struct Layer {
 
     std::vector<double> Forward(const std::vector<double>& inputs);
 
-    void CalcDelta(std::vector<double> expected);
+    void CalcDelta(std::vector<double> target);
     void CalcDelta(Layer& nextLayer);
 };
 
