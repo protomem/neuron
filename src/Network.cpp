@@ -1,6 +1,7 @@
 #include "neuron/Network.hpp"
 
 #include <cassert>
+#include <stdexcept>
 #include <vector>
 
 #include "neuron/Layer.hpp"
