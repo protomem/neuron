@@ -2,9 +2,41 @@
 #include <gtest/gtest.h>
 
 #include "neuron.hpp"
-#include "neuron/Layer.hpp"
-#include "neuron/Neuron.hpp"
-#include "neuron/math.hpp"
+
+TEST(NetworkTest, ValidateCountsCorrectAndPercentage)
+{
+    using namespace neuron;
+
+    // Сеть 2-2-1 с сигмоидой
+    Network<int> net({ 2, 2, 1 }, 0.1, math::sigmoid, math::sigmoid_derivative);
+
+    // Валидационная функция: считает, что класс 1, если выход > 0.5
+    auto validateFn = [](const std::vector<double>& output) -> int {
+        return output[0] > 0.5 ? 1 : 0;
+    };
+
+    // Два примера: один ожидаемо верный, другой, скорее всего, нет
+    common::vector_m2<double> inputs = {
+        { 1.0, 1.0 },
+        {
+            -1.0,
+            -1.0,
+        },
+    };
+
+    std::vector<int> targets = {
+        1,
+        0,
+    };
+
+    auto result = net.Validate(validateFn, inputs, targets);
+
+    EXPECT_EQ(result.trails, 2);
+    EXPECT_GE(result.correct, 0);
+    EXPECT_LE(result.correct, 2);
+    EXPECT_GE(result.percentage, 0.0);
+    EXPECT_LE(result.percentage, 1.0);
+}
 
 TEST(NeuronVersionTest, ValidateVersion)
 {
@@ -25,6 +57,57 @@ TEST(NeuronTest, ForwardWithKnownWeights)
     double out = n.Forward(input);
 
     EXPECT_DOUBLE_EQ(out, math::sigmoid(2.0));
+}
+
+TEST(MathTest, DotProductBasic)
+{
+    using neuron::math::dot_product;
+
+    std::vector<double> a = { 1.0, 2.0, 3.0 };
+    std::vector<double> b = { 4.0, -1.0, 0.5 };
+    // 1*4 + 2*(-1) + 3*0.5 = 4 - 2 + 1.5 = 3.5
+    double result = dot_product(a, b);
+
+    EXPECT_DOUBLE_EQ(result, 3.5);
+}
+
+TEST(MathTest, SigmoidAtZero)
+{
+    using neuron::math::sigmoid;
+
+    double result = sigmoid(0.0);
+    EXPECT_DOUBLE_EQ(result, 0.5);
+}
+
+TEST(MathTest, SigmoidDerivativeAtZero)
+{
+    using neuron::math::sigmoid;
+    using neuron::math::sigmoid_derivative;
+
+    double x = 0.0;
+    double expected = sigmoid(x) * (1.0 - sigmoid(x));
+    EXPECT_DOUBLE_EQ(sigmoid_derivative(x), expected);
+}
+
+TEST(NeuronTest, SetDeltaAndCallActivation)
+{
+    using namespace neuron;
+
+    std::vector<double> weights = { 1.0, 1.0 };
+    Neuron n(weights, /*learningRate*/ 0.1, math::sigmoid,
+        math::sigmoid_derivative);
+
+    // Проверяем SetDelta
+    n.SetDelta(0.42);
+    EXPECT_DOUBLE_EQ(n._delta, 0.42);
+
+    // Устанавливаем кэш и проверяем вызовы активации
+    n._cache = 1.5;
+    double act = n.CallActivation();
+    double actDeriv = n.CallActivationDerivative();
+
+    EXPECT_DOUBLE_EQ(act, math::sigmoid(1.5));
+    EXPECT_DOUBLE_EQ(actDeriv, math::sigmoid_derivative(1.5));
 }
 
 TEST(LayerTest, ForwardOutputLayer)

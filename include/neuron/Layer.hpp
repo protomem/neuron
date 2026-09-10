@@ -17,7 +17,7 @@ struct Layer {
         ActivationFunction activation, ActivationFunction activationDerivative)
         : _prevLayer(prevLayer)
         , _neurons(NeuronFabric::CreateNeurons(
-              numNeurons, prevLayer == nullptr ? 0 : numNeurons,
+              numNeurons, prevLayer == nullptr ? 0 : prevLayer->_cache.size(),
               learningRate, activation, activationDerivative))
         , _cache(numNeurons)
     {

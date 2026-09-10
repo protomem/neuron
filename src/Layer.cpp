@@ -8,8 +8,14 @@ namespace neuron {
 
 std::vector<double> Layer::Forward(const std::vector<double>& inputs)
 {
-    assert(inputs.size() == _cache.size());
-    assert(_neurons.size() == _cache.size());
+    if (_prevLayer) {
+        // Для скрытых/выходных слоёв
+        assert(inputs.size() == _prevLayer->_cache.size());
+        assert(_neurons.size() == _cache.size());
+    } else {
+        // Для входного слоя
+        assert(inputs.size() == _cache.size());
+    }
 
     if (_prevLayer != nullptr) {
         for (size_t i = 0; i < _neurons.size(); i++) {
