@@ -10,6 +10,9 @@ configure:
 		-DCMAKE_CXX_COMPILER=$(CXX_COMPILER) \
 		..
 
+## Перегенерирует файлы сборки
+reconfigure: clean configure
+
 ## Сборка всего проекта
 all: configure
 	cmake --build $(BUILD_DIR)
@@ -27,7 +30,7 @@ clean:
 	rm -rf $(BUILD_DIR)
 
 # Параллельная сборка (можно вызывать как `make -j`)
-.PHONY: all configure clean install tests help
+.PHONY: all configure reconfigure clean install tests help
 
 ## Краткая справка по целям Makefile (генерируется автоматически из комментариев)
 help:
