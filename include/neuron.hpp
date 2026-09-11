@@ -5,6 +5,7 @@
 #include "neuron/Layer.hpp"
 #include "neuron/Network.hpp"
 #include "neuron/Neuron.hpp"
+#include "neuron/Validator.hpp"
 #include "neuron/math.hpp"
 
 namespace neuron {

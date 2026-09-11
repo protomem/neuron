@@ -2,18 +2,19 @@
 #include <gtest/gtest.h>
 
 #include "neuron.hpp"
+#include "neuron/Validator.hpp"
 
-TEST(NetworkTest, ValidateCountsCorrectAndPercentage)
+TEST(ValidatorTest, ValidateCountsCorrectAndPercentage)
 {
     using namespace neuron;
 
-    // Сеть 2-2-1 с сигмоидой
-    Network<int> net({ 2, 2, 1 }, 0.1, math::sigmoid, math::sigmoid_derivative);
-
     // Валидационная функция: считает, что класс 1, если выход > 0.5
-    auto validateFn = [](const std::vector<double>& output) -> int {
+    Validator<int> validator([](const std::vector<double>& output) -> int {
         return output[0] > 0.5 ? 1 : 0;
-    };
+    });
+
+    // Сеть 2-2-1 с сигмоидой
+    Network net({ 2, 2, 1 }, 0.1, math::sigmoid, math::sigmoid_derivative);
 
     // Два примера: один ожидаемо верный, другой, скорее всего, нет
     common::vector_m2<double> inputs = {
@@ -29,7 +30,7 @@ TEST(NetworkTest, ValidateCountsCorrectAndPercentage)
         0,
     };
 
-    auto result = net.Validate(validateFn, inputs, targets);
+    auto result = validator.Validate(net, inputs, targets);
 
     EXPECT_EQ(result.trails, 2);
     EXPECT_GE(result.correct, 0);
