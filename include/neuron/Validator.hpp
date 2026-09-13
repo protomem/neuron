@@ -18,6 +18,11 @@ struct ValidateResult {
         , percentage(percentage_)
     {
     }
+
+    bool IsEmpty()
+    {
+        return correct == 0 && trails == 0 && percentage == 0;
+    }
 };
 
 template <typename T>

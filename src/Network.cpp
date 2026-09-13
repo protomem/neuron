@@ -54,7 +54,7 @@ void Network::_Backpropagate(const std::vector<double>& target)
     auto outputLayer = _layers.back();
     outputLayer->CalcDelta(target);
 
-    for (size_t i = _layers.size() - 1; i >= 0; --i) {
+    for (size_t i = _layers.size() - 2; i > 0; --i) {
         auto layer = _layers[i];
         auto nextLayer = _layers[i + 1];
 

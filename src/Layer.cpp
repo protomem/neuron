@@ -34,7 +34,7 @@ void Layer::CalcDelta(std::vector<double> target)
     assert(_neurons.size() == _cache.size());
 
     for (size_t i = 0; i < _neurons.size(); i++) {
-        auto neuron = _neurons[i];
+        auto& neuron = _neurons[i];
         double currentDelta = target[i] - _cache[i];
 
         neuron.SetDelta(neuron.CallActivationDerivative() * currentDelta);
@@ -47,7 +47,7 @@ void Layer::CalcDelta(Layer& nextLayer)
     assert(!nextLayer._neurons.empty());
 
     for (size_t i = 0; i < _neurons.size(); ++i) {
-        auto neuron = _neurons[i];
+        auto& neuron = _neurons[i];
         double sumWeightsAndDeltas = 0.0;
 
         for (const auto& nextNeuron : nextLayer._neurons) {
