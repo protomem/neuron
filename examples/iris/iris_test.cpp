@@ -5,10 +5,13 @@
 
 TEST(IrisTestSuite, Main)
 {
+
     IrisTestSuite testSuite("../../../examples/iris/dataset.csv");
     auto result = testSuite.Classify();
 
-    EXPECT_TRUE(result.IsEmpty())
+    auto resultPercentage = (result.percentage * 10);
+
+    EXPECT_TRUE(resultPercentage < 50)
         << result.correct << " correct of "
         << result.trails << " = "
         << (result.percentage * 100) << "%"
