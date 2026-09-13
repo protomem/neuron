@@ -24,6 +24,7 @@ add_library(neuron
     src/Layer.cpp
     src/Network.cpp
     src/math.cpp
+    src/dataset.cpp
 )
 
 # Публичные заголовочные файлы
@@ -78,4 +79,5 @@ if(NEURON_BUILD_TESTS)
 
     enable_testing()
     add_subdirectory(tests)
+    add_subdirectory(examples/iris)
 endif()
